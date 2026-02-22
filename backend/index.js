@@ -1,4 +1,5 @@
  import express from "express";  
+ import cors from "cors";
 import * as  files from "node:fs"; 
  
 const wasm=express(); 
@@ -13,6 +14,7 @@ function createUniqueEntry(file, path, name/*Must be unique*/){
     return true;
 
 }
+wasm.use(cors());
 wasm.get("/getInt", async function(request, response){
   
      const property=request.query.property;

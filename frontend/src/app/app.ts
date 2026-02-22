@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { Type } from '../type';
+import { Component, signal } from '@angular/core';  
+import { DatabaseCreation } from "../database creation";
 
 @Component({
-  selector: 'app-root',
-  imports:[Type], 
-  template: '<type></type>',
-  styleUrl: './app.css'
+  selector: 'app-root', 
+  template: "<form><database-creation></database-creation></form>",
+  
+  imports: [DatabaseCreation]
 })
 export class App {
-  protected readonly title = signal('frontend');
+  //protected readonly title = signal('frontend');
 }
