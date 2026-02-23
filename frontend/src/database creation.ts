@@ -4,7 +4,7 @@ import { Creation } from "./creation";
 @Component({
     selector: "database-creation",
     imports:[Creation],
-    template:`<nav><creation type="Database" id="databases"></creation><input type="text" id="databaseName" placeholder="Name of Database"/><button type="button" (click)="run()">Run</button></nav>`
+    template:`<nav><creation type="Database" namer="databaseName"></creation><button type="button" (click)="run()">Run</button></nav>`
 })
 export class DatabaseCreation{
     @Input() name:string="";
@@ -14,10 +14,13 @@ export class DatabaseCreation{
         const name:string=nameBox.value;
         
         switch(databases.value){
+            
+
             case "new":
-                alert(name);
+                 
                 await fetch("http://localhost:9000/createDatabase/"+name, {method:"POST"});
                 break;
+            
         }
 
     }

@@ -2,9 +2,10 @@
  import cors from "cors";
 import * as  files from "node:fs"; 
  
-const wasm=express(); 
+const database=express(); 
 let reader; 
 function createUniqueEntry(file, path, name/*Must be unique*/){
+    process.loadEnvFile(file);
     let itemNumber;
     for(itemNumber=1; Object.hasOwn(process.env, path+itemNumber); itemNumber++){
          if(process.env[path+itemNumber.toString()]==name)
@@ -14,8 +15,8 @@ function createUniqueEntry(file, path, name/*Must be unique*/){
     return true;
 
 }
-wasm.use(cors());
-wasm.get("/getInt", async function(request, response){
+database.use(cors());
+database.get("/getInt", async function(request, response){
   
      const property=request.query.property;
      const condition=request.query.condition;
@@ -29,13 +30,22 @@ wasm.get("/getInt", async function(request, response){
 //console.log(results);
    response.send(value);
 });
-wasm.post("/createDatabase/:name", function(request, response){
-    process.loadEnvFile("./databases.env");
-    createUniqueEntry("databases.env", "database",request.params.name);
-    response.send("success");
+database.post("/createDatabase/:name", function(request, response){
+     
+    if(createUniqueEntry("databases.env", "database",request.params.name))
+         response.send("success");
+    else
+        response.send("fail");
   
 });
-wasm.listen(9000, function(){
+database.post("/createChart", function(request, response){
+     const {database, chart}= request.query;
+    if(createUniqueEntry("sets.env", database+"-chart",`[${chart}, []]`))
+         response.send("success");
+    else
+        response.send("fail");
+})
+database.listen(9000, function(){
     console.log("Running")
 });
 
