@@ -38,9 +38,17 @@ database.post("/createDatabase/:name", function(request, response){
         response.send("fail");
   
 });
+database.get("/viewDatabases", function(request, response){
+    process.loadEnvFile("databases.env");
+    const databases=[];
+    for(let dbNumber=1; process.env["database"+dbNumber]!==undefined; dbNumber++){ 
+        databases.push(process.env["database"+dbNumber]);
+    }
+    response.send(databases);
+})
 database.post("/createChart", function(request, response){
      const {database, chart}= request.query;
-    if(createUniqueEntry("sets.env", database+"-chart",`[${chart}, []]`))
+    if(createUniqueEntry("charts.env", database+"-chart",`[${chart}, []]`))
          response.send("success");
     else
         response.send("fail");
