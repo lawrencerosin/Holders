@@ -30,7 +30,7 @@ database.get("/getInt", async function(request, response){
 //console.log(results);
    response.send(value);
 });
-database.post("/createDatabase/:name", function(request, response){
+database.post("/newDatabase/:name", function(request, response){
      
     if(createUniqueEntry("databases.env", "database",request.params.name))
          response.send("success");
@@ -46,12 +46,20 @@ database.get("/viewDatabases", function(request, response){
     }
     response.send(databases);
 })
-database.post("/createChart", function(request, response){
-     const {database, chart}= request.query;
-    if(createUniqueEntry("charts.env", database+"-chart",`[${chart}, []]`))
+database.post("/newChart", function(request, response){
+     
+    if(createUniqueEntry("charts.env", request.query.database+"-chart",request.query.chart))
          response.send("success");
     else
         response.send("fail");
+})
+database.get("/viewCharts/:database", function(request, response){
+    process.loadEnvFile("charts.env");
+    const charts=[];
+    for(let itemNumber=1; process.env[request.params.database+"-chart"+itemNumber]!==undefined; itemNumber++){
+        charts.push(process.env[request.params.database+"-chart"+itemNumber]);
+    }
+    response.send(charts);
 })
 database.listen(9000, function(){
     console.log("Running")

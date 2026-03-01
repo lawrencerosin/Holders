@@ -1,0 +1,15 @@
+<script defer>
+      const databaseList=await fetch("http://localhost:9000/viewDatabases");
+       const databases=await databaseList.json();
+         const databaseMenu=document.getElementById("databaseMenu");
+       for(let database of databases){
+          const option=document.createElement("option");
+          option.textContent=database;
+          databaseMenu.appendChild(option);
+       }
+</script>
+<nav>
+    <creation type="Database" namer="databaseName" id="databaseMenu">
+     </creation>
+     <button type="button" (click)="run()">Run</button>
+</nav>

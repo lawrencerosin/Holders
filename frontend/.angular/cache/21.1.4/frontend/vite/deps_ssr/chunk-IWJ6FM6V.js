@@ -4,14 +4,16 @@ import {
   ROUTES,
   Router,
   loadChildren
-} from "./chunk-47NIAA5J.js";
+} from "./chunk-RLEM7OWE.js";
 import {
-  APP_BASE_HREF,
   BrowserDomAdapter,
   BrowserModule,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin,
-  HTTP_ROOT_INTERCEPTOR_FNS,
+  HTTP_ROOT_INTERCEPTOR_FNS
+} from "./chunk-HU5WH7J4.js";
+import {
+  APP_BASE_HREF,
   NullViewportScroller,
   PLATFORM_SERVER_ID,
   PlatformLocation,
@@ -19,7 +21,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-6PAQVKSE.js";
+} from "./chunk-OLMCMWW4.js";
 import {
   APP_ID,
   ApplicationRef,
@@ -65,7 +67,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-JK5TVUZO.js";
+} from "./chunk-FAI4WHEZ.js";
 import {
   __objRest,
   __spreadProps,
@@ -73,7 +75,7 @@ import {
   __toESM
 } from "./chunk-6DU2HRTW.js";
 
-// ../node_modules/@angular/platform-server/fesm2022/_server-chunk.mjs
+// node_modules/@angular/platform-server/fesm2022/_server-chunk.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -16423,7 +16425,7 @@ var ServerXhr = class _ServerXhr {
     if (!this.xhrImpl) {
       const {
         default: xhr
-      } = await import("./xhr2-4VDN2AEZ.js");
+      } = await import("./xhr2-E5RTESSH.js");
       this.xhrImpl = xhr;
     }
   }
@@ -16764,7 +16766,7 @@ function platformServer(extraProviders) {
   return platform;
 }
 
-// ../node_modules/@angular/platform-server/fesm2022/platform-server.mjs
+// node_modules/@angular/platform-server/fesm2022/platform-server.mjs
 var import_rxjs2 = __toESM(require_cjs(), 1);
 function provideServerRendering() {
   if (false) {
@@ -16933,7 +16935,7 @@ async function renderApplication(bootstrap, options) {
 }
 var VERSION = new Version("21.1.5");
 
-// ../node_modules/@angular/ssr/third_party/beasties/index.js
+// node_modules/@angular/ssr/third_party/beasties/index.js
 function createNotImplementedError(name) {
   throw new Error(`[unenv] ${name} is not implemented yet!`);
 }
@@ -26826,7 +26828,7 @@ function formatSize(size) {
   return `${roundedSize.toFixed(fractionDigits)} ${abbreviations[index2]}`;
 }
 
-// ../node_modules/@angular/ssr/fesm2022/ssr.mjs
+// node_modules/@angular/ssr/fesm2022/ssr.mjs
 var ServerAssets = class {
   manifest;
   constructor(manifest) {
@@ -28351,4 +28353,4 @@ export {
   AngularAppEngine,
   createRequestHandler
 };
-//# sourceMappingURL=chunk-QVEHXOZD.js.map
+//# sourceMappingURL=chunk-IWJ6FM6V.js.map
