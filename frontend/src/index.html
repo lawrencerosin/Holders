@@ -6,30 +6,15 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script>
-  async function displayList(path, id){
-    const list=document.getElementById(id);
-    const info=await fetch("http://localhost:9000/"+path);
-    const items=await info.json(); 
-    for(let item of items){
-      const itemOption=document.createElement("option");
-      itemOption.textContent=itemOption.value=item;
-      list.appendChild(itemOption);
-      
-    }
-  }
-  alert("hello");
-</script>
+ 
   
 </head>
 <body>
-   <select id="databases"><option></option></select>
+   
    
    <app-root></app-root>
    
-  <script>
-    displayList("viewDatabases", "databases");
-  </script>
+  
   
 </body>
 

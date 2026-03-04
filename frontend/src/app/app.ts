@@ -1,29 +1,34 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Creation } from "../creation";
+import { Begin } from "../buttons/begin";
 
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Creation]
+   imports: [RouterOutlet, Creation, Begin]
   
 })
 export class App {
   protected readonly title = signal('frontend');
-  async displayList(path:string, id:string){
-         const list:HTMLSelectElement=document.getElementById(id) as HTMLSelectElement;
-        const info=await fetch("http://localhost:9000/"+path);
-        const items=await info.json();
-        
-      console.log(items.length);
-        for(let item of items){
-          const itemOption=document.createElement("option");
-          itemOption.textContent=itemOption.value=item;
-          list.appendChild(itemOption);
-          
+  changeVisibleComponents(control:HTMLSelectElement){
+   
+      const creation:HTMLElement=control.nextElementSibling as HTMLElement;
+       if(control.value.length==0){
+        creation.style.display="block";
+        if(control.parentElement!==null&&control.parentElement.nextElementSibling!==null){
+          for(let current:HTMLElement|null=control.parentElement.nextElementSibling as HTMLElement; current!==null; current=current.nextElementSibling as HTMLElement){
+           current.style.display="none";
         }
-    }
-    hello(){
-      alert("hello");
-    }
+        }
+       }
+       else{
+           creation.style.display="none";
+           if(control.parentElement!==null){
+               const next:HTMLElement=control.parentElement.nextElementSibling as HTMLElement;
+               next.style.display="block";
+           }
+       }
+  }
+    
 }

@@ -4,16 +4,14 @@ import {
   ROUTES,
   Router,
   loadChildren
-} from "./chunk-RLEM7OWE.js";
+} from "./chunk-UKQOHNHQ.js";
 import {
+  APP_BASE_HREF,
   BrowserDomAdapter,
   BrowserModule,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin,
-  HTTP_ROOT_INTERCEPTOR_FNS
-} from "./chunk-HU5WH7J4.js";
-import {
-  APP_BASE_HREF,
+  HTTP_ROOT_INTERCEPTOR_FNS,
   NullViewportScroller,
   PLATFORM_SERVER_ID,
   PlatformLocation,
@@ -21,7 +19,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-OLMCMWW4.js";
+} from "./chunk-7JOMR7JP.js";
 import {
   APP_ID,
   ApplicationRef,
@@ -28353,4 +28351,4 @@ export {
   AngularAppEngine,
   createRequestHandler
 };
-//# sourceMappingURL=chunk-IWJ6FM6V.js.map
+//# sourceMappingURL=chunk-5BPK4LEH.js.map

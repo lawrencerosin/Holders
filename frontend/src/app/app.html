@@ -181,12 +181,15 @@
     }
   }
 </style>
- 
+  
 
 <main class="main">
      
-    <nav id="databases"><creation type="Database"></creation></nav>  
-   
+     <begin></begin>
+    
+    <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="changeVisibleComponents(databaseMenu)"><option></option></select><creation type="Database"></creation></nav>  
+    <nav id="chart"><select><option></option></select><creation type="Chart"></creation></nav>
+    <nav><select></select><creation type="Property"></creation></nav>
 </main>
 <router-outlet>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
