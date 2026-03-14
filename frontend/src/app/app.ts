@@ -2,19 +2,17 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Creation } from "../creation";
 import { Begin } from "../buttons/begin";
+import { ChartCreation } from "../chart creation";
 
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Creation, Begin]
+   imports: [RouterOutlet, Creation, Begin, ChartCreation]
   
 })
 export class App {
   protected readonly title = signal('frontend');
-    async createContainer(type:string, nameBox:HTMLInputElement){
-         await fetch(`new ${type}/${nameBox.value}`);
-         nameBox.value="";
-    }
+   
     async displayList(path:string, list:HTMLSelectElement){
           
          //Avoids having multiple copies

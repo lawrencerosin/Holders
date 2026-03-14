@@ -181,14 +181,16 @@
     }
   }
 </style>
- 
+<script>
+  let CHART_PATH="database="+databaseMenu.value
+</script>
 
 <main class="main">
      
      <begin></begin>
     
     <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="displayCharts(chartsMenu, databaseMenu)"><option></option></select><creation type="Database" path="newDatabase"></creation></nav>
-    <nav id="charts"><select #chartsMenu ><option></option></select><creation type="Chart"></creation></nav>
+    <chart-creation></chart-creation>
     <nav><select></select><creation type="Property"></creation></nav>
 </main>
 <router-outlet>

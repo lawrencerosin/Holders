@@ -30,9 +30,9 @@ database.get("/getInt", async function(request, response){
 //console.log(results);
    response.send(value);
 });
-database.post("/newDatabase/:name", function(request, response){
+database.post("/newDatabase", function(request, response){
        console.log("henry is coming over");
-    if(createUniqueEntry("databases.env", "database",request.params.name))
+    if(createUniqueEntry("databases.env", "database",request.query.name))
          response.send("success");
     else
         response.send("fail");
