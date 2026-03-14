@@ -11,7 +11,26 @@ import { Begin } from "../buttons/begin";
 })
 export class App {
   protected readonly title = signal('frontend');
-  changeVisibleComponents(control:HTMLSelectElement){
+    async createContainer(type:string, nameBox:HTMLInputElement){
+         await fetch(`new ${type}/${nameBox.value}`);
+         nameBox.value="";
+    }
+    async displayList(path:string, list:HTMLSelectElement){
+          
+         //Avoids having multiple copies
+         list.innerHTML="<option></option>";
+        const info=await fetch("http://localhost:9000/"+path);
+        const items=await info.json();
+        
+       
+        for(let item of items){
+          const itemOption=document.createElement("option");
+          itemOption.textContent=itemOption.value=item;
+          list.appendChild(itemOption);
+          
+        }
+    }
+  changeVisibleComponents(control:HTMLSelectElement, callback:Promise<void>|null=null){
    
       const creation:HTMLElement=control.nextElementSibling as HTMLElement;
        if(control.value.length==0){
@@ -24,11 +43,16 @@ export class App {
        }
        else{
            creation.style.display="none";
+           if(callback!==null)
+             callback;
            if(control.parentElement!==null){
                const next:HTMLElement=control.parentElement.nextElementSibling as HTMLElement;
                next.style.display="block";
            }
        }
   }
-    
+  displayCharts(chartsMenu:HTMLSelectElement, databaseMenu:HTMLSelectElement){
+       this.changeVisibleComponents(databaseMenu,
+         this.displayList("viewCharts"+databaseMenu.value, chartsMenu));
+  }  
 }

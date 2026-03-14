@@ -31,7 +31,7 @@ database.get("/getInt", async function(request, response){
    response.send(value);
 });
 database.post("/newDatabase/:name", function(request, response){
-     
+       console.log("henry is coming over");
     if(createUniqueEntry("databases.env", "database",request.params.name))
          response.send("success");
     else
@@ -47,7 +47,7 @@ database.get("/viewDatabases", function(request, response){
     response.send(databases);
 })
 database.post("/newChart", function(request, response){
-     
+   
     if(createUniqueEntry("charts.env", request.query.database+"-chart",request.query.chart))
          response.send("success");
     else

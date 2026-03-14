@@ -1,10 +1,9 @@
 import { Component, Input, ViewChild, ElementRef, Renderer2 } from "@angular/core";
 import { Creation } from "./creation";
-import { CommonModule } from "@angular/common";
 
 @Component({
     selector: "database-operations",
-    imports: [Creation, CommonModule],
+    imports: [Creation],
     template:`<nav><creation type="Database" namer="databaseName">  </creation><select style="display:block" [innerHTML]="databaseMenu"></select><button type="button" (click)="run()">Run</button></nav>`
 })
 export class DatabaseOperations{

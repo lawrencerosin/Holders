@@ -3,12 +3,18 @@ import { RouterOutlet} from "@angular/router";
 @Component
 ({
     selector:"creation",
-    template:`<nav style="display:block"><input placeholder="Name of {{type}}"/><button>Create New {{type}}</button></nav><router-outlet></router-outlet>`,
+    template:`<nav style="display:block"><input placeholder="Name of {{type}}" #name/><button (click)="createContainer(name)">Create New {{type}}</button></nav><router-outlet></router-outlet>`,
     standalone:true,
     imports: [RouterOutlet]
   }) 
  
 export class Creation{
     @Input() type:string="";
+    @Input() path:string="";
+    async createContainer(nameBox:HTMLInputElement){
+         await fetch("http://localhost:9000/"+this.path+"/"+nameBox.value, {method:"POST"});
+         
+         nameBox.value="";
+    }
     
 }
