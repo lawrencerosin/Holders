@@ -190,8 +190,8 @@
      <begin></begin>
     
     <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="displayCharts(chartsMenu, databaseMenu); changeChartCreationPath(databaseMenu)"><option></option></select><creation type="Database" path="newDatabase"></creation></nav>
-    <nav id="charts"><select #chartsMenu ><option></option></select><creation type="Chart" path={{chartCreation}}></creation></nav>
-    <nav><select></select><creation type="Property"></creation></nav>
+    <nav id="charts" style="display:none"><select #chartsMenu ><option></option></select><creation type="Chart" path={{chartCreation}}></creation></nav>
+    <nav style="display:none"><select></select><creation type="Property"></creation></nav>
 </main>
 <router-outlet>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

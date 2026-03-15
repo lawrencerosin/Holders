@@ -54,6 +54,6 @@ export class App {
   }
   displayCharts(chartsMenu:HTMLSelectElement, databaseMenu:HTMLSelectElement){
        this.changeVisibleComponents(databaseMenu,
-         this.displayList("viewCharts"+databaseMenu.value, chartsMenu));
+         this.displayList("viewCharts/"+databaseMenu.value, chartsMenu));
   }  
 }
