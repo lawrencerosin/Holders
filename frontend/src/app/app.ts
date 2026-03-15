@@ -1,18 +1,21 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Creation } from "../creation";
-import { Begin } from "../buttons/begin";
-import { ChartCreation } from "../chart creation";
+import { Begin } from "../buttons/begin"; 
 
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Creation, Begin, ChartCreation]
+   imports: [RouterOutlet, Creation, Begin]
   
 })
 export class App {
   protected readonly title = signal('frontend');
-   
+    chartCreation:string="newChart";
+    changeChartCreationPath(databaseMenu:HTMLSelectElement){
+      this.chartCreation="newChart?database="+databaseMenu.value+"&";
+       
+    }
     async displayList(path:string, list:HTMLSelectElement){
           
          //Avoids having multiple copies

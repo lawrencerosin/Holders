@@ -12,7 +12,7 @@ export class Creation{
     @Input() type:string="";
     @Input() path:string="";
     async createContainer(nameBox:HTMLInputElement){
-         await fetch("http://localhost:9000/"+this.path+"?name="+nameBox.value, {method:"POST"});
+         await fetch("http://localhost:9000/"+this.path+"name="+nameBox.value, {method:"POST"});
          
          nameBox.value="";
     }

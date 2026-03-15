@@ -48,7 +48,7 @@ database.get("/viewDatabases", function(request, response){
 })
 database.post("/newChart", function(request, response){
    
-    if(createUniqueEntry("charts.env", request.query.database+"-chart",request.query.chart))
+    if(createUniqueEntry("charts.env", request.query.database+"-chart",request.query.name))
          response.send("success");
     else
         response.send("fail");
