@@ -31,7 +31,7 @@ export class App {
           
         }
     }
-  changeVisibleComponents(control:HTMLSelectElement, callback:Promise<void>|null=null){
+  changeVisiblityDown(control:HTMLSelectElement, callback:Promise<void>|null=null){
    
       const creation:HTMLElement=control.nextElementSibling as HTMLElement;
        if(control.value.length==0){
@@ -53,7 +53,7 @@ export class App {
        }
   }
   displayCharts(chartsMenu:HTMLSelectElement, databaseMenu:HTMLSelectElement){
-       this.changeVisibleComponents(databaseMenu,
+       this.changeVisiblityDown(databaseMenu,
          this.displayList("viewCharts/"+databaseMenu.value, chartsMenu));
   }  
 }
