@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Creation } from "../creation";
 import { Begin } from "../buttons/begin";
 import { RecordCreation } from "../record creation"; 
+import { Commands } from '../commands';
 
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Creation, Begin, RecordCreation]
+   imports: [RouterOutlet, Creation, Begin, RecordCreation, Commands]
   
 })
 export class App {

@@ -7,7 +7,9 @@ import * as  files from "node:fs";
         this.type=type;
         this.value=value;
     }
-     
+    toString(){
+        return `[name:${this.name}, type:${this.type}, value:${this.value}]`;
+    }
 }
 const database=express(); 
 let reader;  
@@ -55,22 +57,21 @@ database.post("/newDatabase", function(request, response){
     next();
 });
 database.post("/add", function(request, response){
-   /* let withoutClosing="";
+    const propertyPath=`${request.query.database}-${request.query.chart}-properties`;
+    let withoutClosing="";
     //Last closing bracket will be readded later
-    for(let position=0; position<
-        process.env[`${request.query.database}
-            -${request.query.chart}-properties1`].length-1
-            ; position++);
-        withoutClosing+=process.env[request.query.name+"-properties"][position];
-    console.log(withoutClosing);*/
-    const properties=[];
+    for(let position=0; position<process.env[propertyPath].toString().length-1; position++)
+        withoutClosing+=process.env[propertyPath][position];
+   
+    let properties="";
     for(let propertyNum=1; 
         request.query["name"+propertyNum]!==null&&request.query["name"+propertyNum]!==undefined; 
         propertyNum++){
         const property=new Property(request.query["name"+propertyNum], request.query["type"+propertyNum], request.query["value"+propertyNum]);
 
-        properties.push(property);
+        properties+="["+property.toString()+"]";
     }
+   process.env[propertyPath]=withoutClosing+properties+"]";
    response.send(properties);
 });
 database.use(function(request, response, next){
@@ -88,7 +89,7 @@ database.get("/viewDatabases", function(request, response){
 database.post("/newChart", function(request, response){
    
     if(createUniqueEntry("charts.env", request.query.database+"-chart",request.query.name)){
-        createUniqueEntry("properties.env", request.query.database+"-"+request.query.name+"-properties", "[]");
+       files.appendFile("properties.env", `${request.query.database}-${request.query.name}-properties=[]`, function(error){console.log("Unable to create the chart.")});
          response.send("success");
     }
     else

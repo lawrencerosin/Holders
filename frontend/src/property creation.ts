@@ -4,8 +4,13 @@ import { RouterOutlet } from "@angular/router";
 @Component({
     selector:"property-creation",
     imports: [Type, RouterOutlet],
-    template:"<input placeholder='Property Name'/><type></type><input placeholder='Property Value'/><button>Remove</button><router-outlet></router-outlet>"
+    template:"<span><span #property><input placeholder='Property Name'/><type></type><input placeholder='Property Value'/><button (click)='remove(property)'>Remove</button><router-outlet></router-outlet></span></span>"
 })
 export class PropertyCreation{
-
+   remove(property:HTMLSpanElement){
+      if(property.parentElement!==null){
+      property.parentElement.removeChild(property);
+      alert("hllo");
+      }
+   }
 }
