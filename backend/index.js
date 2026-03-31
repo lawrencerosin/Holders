@@ -103,6 +103,10 @@ database.get("/viewCharts/:database", function(request, response){
     }
     response.send(charts);
 })
+database.post("/newProperty", function(request, response){
+   createUniqueEntry("properties.env", `${request.query.database}-${request.query.chart}-property`, request.query.name);
+   response.send("done");
+});
 database.listen(9000, function(){
     console.log("Running")
 });

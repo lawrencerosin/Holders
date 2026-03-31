@@ -1,14 +1,15 @@
 import { Component } from "@angular/core";
 @Component({
     selector:"commands",
-    template:"<select #commands (click)='showRightControls(commands)'><option>Get</option><option value='add'>Add</option><option>Remove</option><option>Change</option></select>"
+    template:"<select #commands (change)='showRightControls(commands)'><option value='get'>Get</option><option value='new property'>New Property</option><option value='add'>Add</option><option>Remove</option><option>Change</option></select>"
 })
 export class Commands{
    
   showRightControls(menu:HTMLSelectElement){
     let controls:HTMLElement=menu;
-    function setControls(desired:HTMLElement){
-        if(desired!==null)
+    function setControls(id:string){
+        const desired:HTMLElement=document.getElementById(id) as HTMLElement;
+      //  if(desired!==null)
          controls=desired;
     }
      
@@ -17,14 +18,18 @@ export class Commands{
             break;
         case "add":
              
-            const adder:HTMLElement=document.getElementById("properties") as HTMLElement;
-           setControls(adder);
+            
+           setControls("record");
            break;
-        
+        case "new property":
+            alert("hello");
+            setControls("newProperty");
+            break;
            
            
     }
-    if(controls!==null&&controls!==undefined)
+    alert(controls.textContent);
+    if(true)
         controls.style.display="block";
   }
 }
