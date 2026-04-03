@@ -11,6 +11,48 @@ import * as  files from "node:fs";
         return `[name:${this.name}, type:${this.type}, value:${this.value}]`;
     }
 }
+function isPropertyOf(value, database, chart){
+    let dash=0;
+    let path="";
+    let position;
+    for( position=0; position<value.length&&dash<2; position++){
+        path+=value[position];
+        if(value[position]=='-')
+            dash++;
+    }
+    
+    if(path!=database+"-"+chart+"-")
+        return false;
+    else{
+      let type="";
+       for(; position<value.length&&(value.charCodeAt(position)<'0'.charCodeAt(0)||value.charCodeAt(position)>'9'.charCodeAt(0)); position++){
+           type+=value[position];
+       }
+      
+       if(type=="property")
+          return true;
+       else 
+        return false;
+
+    }
+}
+function getPath(text){
+    let path="";
+    let dash=0;
+    for(let position=0; position<text.length&&dash<2; position++){
+       path+=text[position];
+       if(text[position]=='-')
+        dash++;
+    }
+    return path;
+}
+function getProperty(text){
+    let property="";
+    for(let position=text.length-1; position>=0&&text[position]!='-'; position--){
+        property+=text[position];
+    }
+    return property;
+}
 const database=express(); 
 let reader;  
 function setEnvFile(name){
@@ -41,6 +83,23 @@ database.get("/getInt", async function(request, response){
     }) 
 //console.log(results);
    response.send(value);
+});
+database.use(function(request, response, next){
+    setEnvFile("properties.env");
+    next();
+
+});
+database.get("/properties", function(request, response){
+       setEnvFile("properties.env");
+    const database=request.query.database;
+    const chart=request.query.chart;
+    const properties=[]; 
+    for(let property in process.env){
+       if(isPropertyOf(property, database, chart))
+           properties.push(process.env[property]);
+        
+    }
+    response.send(properties);
 });
 database.post("/newDatabase", function(request, response){
         

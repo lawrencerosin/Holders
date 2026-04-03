@@ -5,6 +5,6 @@ export default class Property{
         this.value=value;
     }
     toString(){
-        return `{name:${this.name}, type:${this.type}, value:${this.value}}`;
+        return `[name:${this.name}, type:${this.type}, value:${this.value}]`;
     }
 }

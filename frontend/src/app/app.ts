@@ -2,14 +2,14 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Creation } from "../creation";
 import { Begin } from "../buttons/begin";
-import {NewRecord } from "../new record"; 
+import {NewRecord} from "../new record"; 
 import { Commands } from '../commands';
 import { NewProperty} from "../new property";
-
+import { PropertyList } from '../property list';
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Creation, Begin, Commands, NewProperty, NewRecord]
+   imports: [RouterOutlet, Creation, Begin, Commands, NewProperty, NewRecord, PropertyList]
   
 })
 export class App {
