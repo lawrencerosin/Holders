@@ -22,14 +22,13 @@ export class Commands{
            setControls("record");
            break;
         case "new property":
-            alert("hello");
+            
             setControls("newProperty");
             break;
            
            
-    }
-    alert(controls.textContent);
-    if(true)
+    } 
+    if(controls!==null)
         controls.style.display="block";
   }
 }

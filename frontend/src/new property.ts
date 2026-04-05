@@ -4,7 +4,7 @@ import { RouterOutlet } from "@angular/router";
 @Component({
     selector:"new-property",
     imports: [Type, RouterOutlet],
-    template:"<span style='display:none' id='newProperty'><span #property><input required placeholder='Property Name' #propertyName  /><type></type><button (click)='addProperty(propertyName)'>Add Property</button><router-outlet></router-outlet></span></span>"
+    template:"<span style='display:none' id='newProperty'><span #property><input required placeholder='Property Name'   ngmodel title='The property name must start with a letter, and then contain only letters, numbers, and the underscore.'  #propertyName pattern='\\d[A-Za-z_][A-Za-z1-9_]\\d' /><type></type><button (click)='addProperty(propertyName)'>Add Property</button><router-outlet></router-outlet></span></span>"
 })
 export class NewProperty{
    @Input() database:string="";
