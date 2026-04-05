@@ -182,17 +182,18 @@
   }
 </style>
 <script>
-  let CHART_PATH="database="+databaseMenu.value
+  let CHART_PATH="database="+databaseMenu.value;
+   
 </script>
 
 <main class="main">
      
      <begin></begin>
     
-    <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="displayCharts(chartsMenu, databaseMenu); changeChartCreationPath(databaseMenu)"><option></option></select><creation type="Database" path="newDatabase"></creation></nav>
-    <nav id="charts" style="display:none"><select #chartsMenu ><option></option></select><creation type="Chart" path={{chartCreation}}></creation></nav>
+    <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="displayCharts(chartsMenu, databaseMenu); changeChartCreationPath(databaseMenu)"><option></option></select><new-item type="Database" path="newDatabase"></new-item></nav>
+    <nav id="charts" style="display:none"><select #chartsMenu ><option></option></select><new-item type="Chart" path={{chartCreation}}></new-item></nav>
     <commands></commands>
-    <property-list database="school" chart="class"></property-list>
+    <property-list database={{databaseMenu.value}} chart={{chartsMenu.value}} #propertyList></property-list>
     <new-property></new-property>
     <new-record></new-record>
 </main>

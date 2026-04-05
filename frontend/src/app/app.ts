@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Creation } from "../creation";
+import { NewItem } from "../new item";
 import { Begin } from "../buttons/begin";
 import {NewRecord} from "../new record"; 
 import { Commands } from '../commands';
@@ -9,7 +9,7 @@ import { PropertyList } from '../property list';
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Creation, Begin, Commands, NewProperty, NewRecord, PropertyList]
+   imports: [RouterOutlet, NewItem, Begin, Commands, NewProperty, NewRecord, PropertyList]
   
 })
 export class App {
@@ -54,6 +54,21 @@ export class App {
                next.style.display="block";
            }
        }
+  }
+  async displayProperties(menuHolder:HTMLElement, databaseMenu:HTMLSelectElement, chartMenu:HTMLSelectElement){
+    if(document.getElementById("propertyList")!==null){
+      const propertyMenus:HTMLCollection=menuHolder.children;
+      const properties=await fetch(`http://localhost:9000/properties?database=${databaseMenu.value}&chart=${chartMenu.value}`);
+      const names=await properties.json();
+      for(let propertyMenu of propertyMenus){
+        propertyMenu.innerHTML="";
+        for(let name of names){
+          const propertyOption=document.createElement("option");
+          propertyOption.textContent=propertyOption.value=name;
+          propertyMenu.appendChild(propertyOption);
+        }
+      }
+   }
   }
   displayCharts(chartsMenu:HTMLSelectElement, databaseMenu:HTMLSelectElement){
        this.changeVisiblityDown(databaseMenu,

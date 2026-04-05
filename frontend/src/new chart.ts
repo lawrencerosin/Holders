@@ -1,11 +1,11 @@
 import { Component, Input } from "@angular/core";
 
-import { Creation } from "./creation";
+import {NewItem} from "./new item";
 import { RouterOutlet } from "@angular/router";
 @Component({
     selector:"new-chart",
-    imports: [Creation, RouterOutlet],
-    template:` <nav id="charts"><select #chartsMenu ><option></option></select><creation type="Chart" path="api"></creation></nav><router-outlet></router-outlet>`
+    imports: [NewItem, RouterOutlet],
+    template:` <nav id="charts"><select #chartsMenu ><option></option></select><new-item type="Chart" path="api"></new-item></nav><router-outlet></router-outlet>`
 })
 export class NewChart{
     @Input() database:string="";
