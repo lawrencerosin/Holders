@@ -1,14 +1,15 @@
  import express from "express";  
  import cors from "cors";
 import * as  files from "node:fs"; 
+import { parse } from "node:path";
  class Property{
-    constructor(name, type, value){
+    constructor(name, type){
         this.name=name;
         this.type=type;
-        this.value=value;
+        
     }
     toString(){
-        return `[name:${this.name}, type:${this.type}, value:${this.value}]`;
+        return `Name:${this.name}, Type:${this.type}`;
     }
 }
 function isPropertyOf(value, database, chart){
@@ -53,6 +54,22 @@ function getProperty(text){
     }
     return property;
 }
+function parseProperty(text){
+    const propertyNames=["name", "type"];
+    const property={};
+    property[propertyNames[0]]="";
+    let pPosition=0;
+    for(let position=0; position<text.length; position++){
+        if(text[position]==','){
+            pPosition++;
+             property[propertyNames[pPosition]]="";
+        }
+        else
+            property[propertyNames[pPosition]]+=text[position];
+    }
+    
+    return new Property(property["name"], property["type"]);
+}
 const database=express(); 
 let reader;  
 function setEnvFile(name){
@@ -80,8 +97,7 @@ database.get("/getInt", async function(request, response){
         const {placeInt, getInt}=code.instance.exports;
         placeInt(5, true);
         value=getInt(1);
-    }) 
-//console.log(results);
+    })  
    response.send(value);
 });
 database.use(function(request, response, next){
@@ -96,7 +112,7 @@ database.get("/properties", function(request, response){
     const properties=[]; 
     for(let property in process.env){
        if(isPropertyOf(property, database, chart))
-           properties.push(process.env[property]);
+           properties.push(parseProperty(process.env[property]).toString());
         
     }
     response.send(properties);
@@ -126,7 +142,7 @@ database.post("/add", function(request, response){
     for(let propertyNum=1; 
         request.query["name"+propertyNum]!==null&&request.query["name"+propertyNum]!==undefined; 
         propertyNum++){
-        const property=new Property(request.query["name"+propertyNum], request.query["type"+propertyNum], request.query["value"+propertyNum]);
+        const property=new Property(request.query["name"+propertyNum], request.query["type"+propertyNum]);
 
         properties+="["+property.toString()+"]";
     }
@@ -163,7 +179,7 @@ database.get("/viewCharts/:database", function(request, response){
     response.send(charts);
 })
 database.post("/newProperty", function(request, response){
-   createUniqueEntry("properties.env", `${request.query.database}-${request.query.chart}-property`, request.query.name);
+   createUniqueEntry("properties.env", `${request.query.database}-${request.query.chart}-property`, request.query.name+","+request.query.type);
    response.send("done");
 });
 database.listen(9000, function(){
