@@ -11,10 +11,16 @@ export class NewProperty{
    @Input() chart:string="";
    
    async addProperty(propertyName:HTMLInputElement){
-      const propertyType:HTMLSelectElement=propertyName.nextElementSibling?.children[0]  as HTMLSelectElement;
+      try{const propertyType:HTMLSelectElement=propertyName.nextElementSibling?.children[0]  as HTMLSelectElement;
       
-      await fetch(`http://localhost:9000/newProperty?database=${this.database}&chart=${this.chart}&name=${propertyName.value}&type=${propertyType.value}`, {method:"POST"});
-       if(propertyName.parentElement!==null&&propertyName.parentElement.parentElement!==null)
-         propertyName.parentElement.parentElement.style.display="none";
+        await fetch(`http://localhost:9000/newProperty?database=${this.database}&chart=${this.chart}&name=${propertyName.value}&type=${propertyType.value}`, {method:"POST"});
+        if(propertyName.parentElement!==null&&propertyName.parentElement.parentElement!==null)
+            propertyName.parentElement.parentElement.style.display="none";
+        alert("Successfully added the property.");
+        propertyName.value="";
+        }
+        catch(ex){
+            alert("Unable to add the property");
+        }
    }
 }

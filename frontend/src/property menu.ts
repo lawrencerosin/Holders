@@ -21,7 +21,7 @@ export class PropertyMenu{
    }
    constructor(renderer:Renderer2, element: ElementRef){
       this.renderer=renderer;
-      this.displayProperties("school", "class");
+      this.displayProperties(this.database, this.chart);
    }
 
 }

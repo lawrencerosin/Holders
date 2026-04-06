@@ -1,15 +1,15 @@
-import { Component } from "@angular/core";
+import { Component} from "@angular/core";
 @Component({
     selector:"commands",
     template:"<select #commands (change)='showRightControls(commands)'><option value='get'>Get</option><option value='new property'>New Property</option><option value='add'>Add</option><option>Remove</option><option>Change</option></select>"
 })
 export class Commands{
-   
+    
   showRightControls(menu:HTMLSelectElement){
     let controls:HTMLElement=menu;
     function setControls(id:string){
         const desired:HTMLElement=document.getElementById(id) as HTMLElement;
-      //  if(desired!==null)
+        if(desired!==null)
          controls=desired;
     }
      
@@ -17,9 +17,8 @@ export class Commands{
         case "get":
             break;
         case "add":
-             
-            
-           setControls("record");
+           document.getElementsByName("added")[0].style.display="block";
+
            break;
         case "new property":
             
