@@ -6,6 +6,7 @@ import {NewRecord} from "../new record";
 import { Commands } from '../commands';
 import { NewProperty} from "../new property";
 import { PropertyList } from '../property list';
+import { displayPropertyBoxes } from '../element manager';
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
@@ -18,6 +19,9 @@ export class App {
     changeChartCreationPath(databaseMenu:HTMLSelectElement){
       this.chartCreation="newChart?database="+databaseMenu.value+"&";
        
+    }
+    displayPropertiesToAdd(){
+        displayPropertyBoxes();
     }
     async displayList(path:string, list:HTMLSelectElement){
           
@@ -55,6 +59,7 @@ export class App {
            }
        }
   }
+   
   async displayProperties(menuHolder:HTMLElement, databaseMenu:HTMLSelectElement, chartMenu:HTMLSelectElement){
     if(document.getElementById("propertyList")!==null){
       const propertyMenus:HTMLCollection=menuHolder.children;

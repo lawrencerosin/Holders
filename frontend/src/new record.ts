@@ -13,7 +13,7 @@ export class NewRecord{
     const added:HTMLFormElement=document.getElementsByName("added")[0] as HTMLFormElement;
     const propertyAPI=await fetch(`http://localhost:9000/properties?database=${database}&chart=${chart}`);
     const properties=await propertyAPI.json();
-    console.log(database);
+    
     for(let property of properties){
         const propertyBox=document.createElement("input");
         propertyBox.setAttribute("placeholder", property);

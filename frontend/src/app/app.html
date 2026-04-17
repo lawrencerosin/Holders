@@ -190,12 +190,12 @@
      
      <begin></begin>
     
-    <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="displayCharts(chartMenu, databaseMenu); changeChartCreationPath(databaseMenu)"><option></option></select><new-item type="Database" path="newDatabase"></new-item></nav>
-    <nav id="charts" style="display:none"><select #chartMenu ><option></option></select><new-item type="Chart" path={{chartCreation}}></new-item></nav>
-    <commands></commands>
+    <nav id="databases"><select style="display: block;" id="databaseMenu" #databaseMenu (change)="displayCharts(chartMenu, databaseMenu); changeChartCreationPath(databaseMenu); displayPropertiesToAdd()"><option></option></select><new-item type="Database" path="newDatabase"></new-item></nav>
+    <nav id="charts" style="display:none"><select #chartMenu id="tableMenu" (change)="displayPropertiesToAdd()"><option></option></select><new-item type="Chart" path={{chartCreation}}></new-item></nav>
+    <commands database={{databaseMenu.value}} chart={{chartMenu.value}}></commands>
     <property-list database={{databaseMenu.value}} chart={{chartMenu.value}} #propertyList></property-list>
     <new-property database={{databaseMenu.value}} chart={{chartMenu.value}}></new-property>
-    <new-record database={{databaseMenu.value}} chart={{chartMenu.value}}></new-record>
+    <new-record database="{{databaseMenu.value}}" chart={{chartMenu.value}}></new-record>
 </main>
 <router-outlet>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
