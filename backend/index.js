@@ -86,6 +86,14 @@ function createUniqueEntry(file, path, name/*Must be unique*/){
     return true;
 
 }
+function createEntry(file, path, info){
+    process.loadEnvFile(file);
+    let itemNumber;
+    for(itemNumber=1; Object.hasOwn(process.env, path+itemNumber); itemNumber++);
+    files.appendFile(file, (path+itemNumber)+"="+info+"\n", function(error){});
+    
+
+}
 database.use(cors());
 database.get("/getInt", async function(request, response){
   
@@ -112,7 +120,7 @@ database.get("/properties", function(request, response){
     const properties=[]; 
     for(let property in process.env){
        if(isPropertyOf(property, database, chart))
-           properties.push(parseProperty(process.env[property]).toString());
+           properties.push(parseProperty(process.env[property]));
         
     }
     response.send(properties);
@@ -128,25 +136,21 @@ database.post("/newDatabase", function(request, response){
 
 
  database.use(function(request, response, next){
-    setEnvFile("properties.env");
+    setEnvFile("property values.env");
+     
     next();
 });
-database.post("/add", function(request, response){
-    const propertyPath=`${request.query.database}-${request.query.chart}-properties`;
-    let withoutClosing="";
-    //Last closing bracket will be readded later
-    for(let position=0; position<process.env[propertyPath].toString().length-1; position++)
-        withoutClosing+=process.env[propertyPath][position];
-   
-    let properties="";
-    for(let propertyNum=1; 
-        request.query["name"+propertyNum]!==null&&request.query["name"+propertyNum]!==undefined; 
-        propertyNum++){
-        const property=new Property(request.query["name"+propertyNum], request.query["type"+propertyNum]);
-
-        properties+="["+property.toString()+"]";
-    }
-   process.env[propertyPath]=withoutClosing+properties+"]";
+database.post("/add/:database/:chart", function(request, response){
+     setEnvFile("property values.env");
+     
+   const properties=[];
+   const path=`${request.params.database}-${request.params.chart}-record`;
+   let recordNum;
+   for(recordNum=1; path+recordNum in process.env; recordNum++);
+   for(let property in request.query){
+       properties.push(`[${property}, ${request.query[property]}]`);
+   }
+  createEntry("property values.env", path, properties);
    response.send(properties);
 });
 database.use(function(request, response, next){

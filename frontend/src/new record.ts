@@ -3,26 +3,16 @@ import { RouterOutlet } from "@angular/router";
 @Component({
     selector:"new-record",
     imports: [RouterOutlet],
-    template:`<form style='display:none' name='added'><button (click)='addRecord()'>Add Record</button></form><router-outlet></router-outlet>`
+    template:`<form style='display:none' name='added'><button (click)='addRecord()' type='button'>Add Record</button></form><router-outlet></router-outlet>`
 })
 export class NewRecord{
    @Input() database:string="";
    @Input() chart:string="";
    @ViewChild("renderer") renderer:Renderer2;
-   async displayPropertyBoxes(database:string, chart:string){
-    const added:HTMLFormElement=document.getElementsByName("added")[0] as HTMLFormElement;
-    const propertyAPI=await fetch(`http://localhost:9000/properties?database=${database}&chart=${chart}`);
-    const properties=await propertyAPI.json();
-    
-    for(let property of properties){
-        const propertyBox=document.createElement("input");
-        propertyBox.setAttribute("placeholder", property);
-        added.appendChild(propertyBox);
-    }
-   }
+   
    constructor(renderer:Renderer2, element: ElementRef){
     this.renderer=renderer;
-      this.displayPropertyBoxes(this.database,this.chart);
+     
    }
    addProperty(adder:HTMLButtonElement){
    
@@ -36,7 +26,21 @@ export class NewRecord{
         properties.insertBefore(newProperty, adder);
     }
    }
-   addRecord(){
+   async addRecord(){
+         const added=document.getElementsByName("added")[0];
+         const databaseMenu:HTMLSelectElement=document.getElementById("databaseMenu") as HTMLSelectElement;
+         const database:string=databaseMenu.value;
+         const chartMenu:HTMLSelectElement=document.getElementById("tableMenu") as HTMLSelectElement;
+         const chart:string=chartMenu.value;
+        const properties:HTMLCollectionOf<HTMLInputElement>=added.getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>;
+         let propertyCommand="";
+        for(let position=0; position<properties.length; position++){
+                    propertyCommand+=`${properties[position].getAttribute("placeholder")}=${properties[position].value}`;
+                    if(position<properties.length-1)
+                        propertyCommand+="&";
+        }
+        alert(propertyCommand);
+      await fetch(`http://localhost:9000/add/${database}/${chart}?${propertyCommand}`, {method:"POST"})
     
    }
 }

@@ -6,7 +6,7 @@ export async function displayPropertyBoxes(){
     
     for(let property of properties){
         const propertyBox:HTMLInputElement=document.createElement("input");
-        propertyBox.setAttribute("placeholder", property);
+        propertyBox.setAttribute("placeholder", property.name);
         added.appendChild(propertyBox);
     }
    }
