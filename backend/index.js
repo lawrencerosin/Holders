@@ -1,7 +1,7 @@
  import express from "express";  
  import cors from "cors";
 import * as  files from "node:fs"; 
-import { parse } from "node:path";
+import { parseInteger, parseProperty, parseRecord } from "./parse.js";
  class Property{
     constructor(name, type){
         this.name=name;
@@ -54,22 +54,13 @@ function getProperty(text){
     }
     return property;
 }
-function parseProperty(text){
-    const propertyNames=["name", "type"];
-    const property={};
-    property[propertyNames[0]]="";
-    let pPosition=0;
-    for(let position=0; position<text.length; position++){
-        if(text[position]==','){
-            pPosition++;
-             property[propertyNames[pPosition]]="";
-        }
-        else
-            property[propertyNames[pPosition]]+=text[position];
-    }
-    
-    return new Property(property["name"], property["type"]);
+ 
+function searchPath(path, callback){
+    for(let itemNumber=1; path+itemNumber in process.env; itemNumber++)
+        callback(path+itemNumber);
+        
 }
+
 const database=express(); 
 let reader;  
 function setEnvFile(name){
@@ -95,18 +86,38 @@ function createEntry(file, path, info){
 
 }
 database.use(cors());
-database.get("/getInt", async function(request, response){
+database.use(function(request, response, next){
+    setEnvFile("property values.env");
+    next();
+})
+database.get("/retrieve/:database/:chart", async function(request, response){
   
      const property=request.query.property;
      const condition=request.query.condition;
-     let value=0;
+     const path=request.params.database+"-"+request.params.chart+"-record";
+     const results=[];
+    
      reader=files.readFileSync("./wasm/retrieval.wasm")
-    WebAssembly.instantiate(results).then(function(code){
-        const {placeInt, getInt}=code.instance.exports;
-        placeInt(5, true);
-        value=getInt(1);
-    })  
-   response.send(value);
+   
+   
+        searchPath(path, function(item){
+            const result={};
+            const record=parseRecord(process.env[item]);
+            let address=1;
+            for(let property in request.query){
+                const propertyValue=request.query[property];
+                WebAssembly.instantiate(reader).then(function(code){
+         const {placeInt, getInt}=code.instance.exports;
+         placeInt(parseInteger(record[propertyValue]), true);
+                console.log(getInt(1));
+              })
+               result[propertyValue]=record[propertyValue];
+            }
+             
+            results.push(result);
+        }); 
+     
+   response.send(results);
 });
 database.use(function(request, response, next){
     setEnvFile("properties.env");

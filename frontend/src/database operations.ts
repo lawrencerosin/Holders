@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, Renderer2 } from "@angular/core";
-import { NewItem} from "./new item";
+import { NewItem} from "./item creation";
 
 @Component({
     selector: "database-operations",

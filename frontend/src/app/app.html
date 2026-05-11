@@ -194,8 +194,8 @@
     <nav id="charts" style="display:none"><select #chartMenu id="tableMenu" (change)="displayPropertiesToAdd()"><option></option></select><new-item type="Chart" path={{chartCreation}}></new-item></nav>
     <commands database={{databaseMenu.value}} chart={{chartMenu.value}}></commands>
     <property-list database={{databaseMenu.value}} chart={{chartMenu.value}} #propertyList></property-list>
-    <new-property database={{databaseMenu.value}} chart={{chartMenu.value}}></new-property>
-    <new-record database="{{databaseMenu.value}}" chart={{chartMenu.value}}></new-record>
+    <property_creation database={{databaseMenu.value}} chart={{chartMenu.value}}></property_creation>
+    <record_creation database="{{databaseMenu.value}}" chart={{chartMenu.value}}></record_creation>
 </main>
 <router-outlet>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

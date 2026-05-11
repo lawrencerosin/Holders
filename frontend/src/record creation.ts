@@ -1,11 +1,11 @@
 import { Component, Input, Renderer2, ElementRef, ViewChild } from "@angular/core"; 
 import { RouterOutlet } from "@angular/router";
 @Component({
-    selector:"new-record",
+    selector:"record_creation",
     imports: [RouterOutlet],
     template:`<form style='display:none' name='added'><button (click)='addRecord()' type='button'>Add Record</button></form><router-outlet></router-outlet>`
 })
-export class NewRecord{
+export class RecordCreation{
    @Input() database:string="";
    @Input() chart:string="";
    @ViewChild("renderer") renderer:Renderer2;
@@ -39,7 +39,7 @@ export class NewRecord{
                     if(position<properties.length-1)
                         propertyCommand+="&";
         }
-        alert(propertyCommand);
+       
       await fetch(`http://localhost:9000/add/${database}/${chart}?${propertyCommand}`, {method:"POST"})
     
    }

@@ -1,16 +1,15 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NewItem } from "../new item";
+import { RouterOutlet } from '@angular/router'; 
 import { Begin } from "../buttons/begin";
-import {NewRecord} from "../new record"; 
+import {RecordCreation} from "../record creation"; 
 import { Commands } from '../commands';
-import { NewProperty} from "../new property";
+import { PropertyCreation } from "../property creation";
 import { PropertyList } from '../property list';
 import { displayPropertyBoxes } from '../element manager';
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, NewItem, Begin, Commands, NewProperty, NewRecord, PropertyList]
+   imports: [RouterOutlet, Begin, Commands,  RecordCreation, PropertyList, PropertyCreation]
   
 })
 export class App {
