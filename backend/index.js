@@ -109,7 +109,7 @@ database.get("/retrieve/:database/:chart", async function(request, response){
                 WebAssembly.instantiate(reader).then(function(code){
          const {placeInt, getInt}=code.instance.exports;
          placeInt(parseInteger(record[propertyValue]), true);
-                console.log(getInt(1));
+                
               })
                result[propertyValue]=record[propertyValue];
             }

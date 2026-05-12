@@ -1,10 +1,10 @@
 import { Component, Input, ViewChild, ElementRef, Renderer2 } from "@angular/core";
-import { NewItem} from "./item creation";
+import { ItemCreation} from "./item creation";
 
 @Component({
     selector: "database-operations",
-    imports: [NewItem],
-    template:`<nav><new-item type="Database" namer="databaseName">  </new-item><select style="display:block" [innerHTML]="databaseMenu"></select><button type="button" (click)="run()">Run</button></nav>`
+    imports: [ItemCreation],
+    template:`<nav><item_creation type="Database" namer="databaseName">  </item_creation><select style="display:block" [innerHTML]="databaseMenu"></select><button type="button" (click)="run()">Run</button></nav>`
 })
 export class DatabaseOperations{
     @Input() name:string="";
