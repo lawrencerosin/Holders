@@ -2,16 +2,8 @@
  import cors from "cors";
 import * as  files from "node:fs"; 
 import { parseInteger, parseProperty, parseRecord } from "./parse.js";
- class Property{
-    constructor(name, type){
-        this.name=name;
-        this.type=type;
-        
-    }
-    toString(){
-        return `Name:${this.name}, Type:${this.type}`;
-    }
-}
+import { parse } from "node:path";
+ 
 function isPropertyOf(value, database, chart){
     let dash=0;
     let path="";
@@ -56,8 +48,10 @@ function getProperty(text){
 }
  
 function searchPath(path, callback){
-    for(let itemNumber=1; path+itemNumber in process.env; itemNumber++)
+    for(let itemNumber=1; path+itemNumber in process.env; itemNumber++){
+        console.log(itemNumber);
         callback(path+itemNumber);
+    }
         
 }
 
@@ -91,27 +85,29 @@ database.use(function(request, response, next){
     next();
 })
 database.get("/retrieve/:database/:chart", async function(request, response){
-  
+     
      const property=request.query.property;
      const condition=request.query.condition;
      const path=request.params.database+"-"+request.params.chart+"-record";
      const results=[];
-    
+     
      reader=files.readFileSync("./wasm/retrieval.wasm")
    
    
         searchPath(path, function(item){
+           
             const result={};
             const record=parseRecord(process.env[item]);
             let address=1;
             for(let property in request.query){
                 const propertyValue=request.query[property];
                 WebAssembly.instantiate(reader).then(function(code){
-         const {placeInt, getInt}=code.instance.exports;
-         placeInt(parseInteger(record[propertyValue]), true);
+                const {placeInt, getInt}=code.instance.exports;
+              
+                placeInt(parseInteger(record[propertyValue]), true);
                 
               })
-               result[propertyValue]=record[propertyValue];
+              result[propertyValue]=record[propertyValue];
             }
              
             results.push(result);

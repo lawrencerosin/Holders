@@ -1,3 +1,4 @@
+
 export default class Property{
     constructor(name, type, value){
         this.name=name;

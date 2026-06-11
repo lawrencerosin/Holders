@@ -7,6 +7,26 @@ export async function displayPropertyBoxes(){
     for(let property of properties){
         const propertyBox:HTMLInputElement=document.createElement("input");
         propertyBox.setAttribute("placeholder", property.name);
+        switch(property.type){
+            case "Real":
+                propertyBox.setAttribute("type", "number");
+                break;
+            case "Integer":
+                propertyBox.setAttribute("type", "number");
+                propertyBox.setAttribute("step", "1");
+                break;
+            case "Character":
+                propertyBox.setAttribute("type", "text");
+                propertyBox.setAttribute("minlength", "1");
+                propertyBox.setAttribute("maxlength", "1");
+                break;
+            case "Boolean":
+                propertyBox.setAttribute("type", "checkbox");
+                break;
+            default:
+                propertyBox.setAttribute("type", "text");
+
+        }
         added.appendChild(propertyBox);
     }
    }

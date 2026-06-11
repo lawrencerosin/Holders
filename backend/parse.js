@@ -1,3 +1,4 @@
+import Property from "./property.js";
 export function parseProperty(text){
     const propertyNames=["name", "type"];
     const property={};
@@ -38,9 +39,17 @@ export function parseRecord(info){
 }
 export function parseInteger(value){
     let number=0;
-    for(let position=0; position<value.length; position++){
+    let start;
+    if(value[0]=='-')
+       start=1;
+    else
+        start=0;
+    for(let position=start; position<value.length&&value[position]!='.'; position++){
         const digit=value.charCodeAt(position)%24;
         number=number*10+digit;
     }
-    return number
+    if(start==1)
+    return -number;
+    else
+        return number;
 }

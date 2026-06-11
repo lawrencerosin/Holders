@@ -30,7 +30,7 @@ export class RecordCreation{
          const added=document.getElementsByName("added")[0];
          const databaseMenu:HTMLSelectElement=document.getElementById("databaseMenu") as HTMLSelectElement;
          const database:string=databaseMenu.value;
-         const chartMenu:HTMLSelectElement=document.getElementById("tableMenu") as HTMLSelectElement;
+         const chartMenu:HTMLSelectElement=document.getElementById("chartMenu") as HTMLSelectElement;
          const chart:string=chartMenu.value;
         const properties:HTMLCollectionOf<HTMLInputElement>=added.getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>;
          let propertyCommand="";
