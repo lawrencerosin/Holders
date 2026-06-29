@@ -1,11 +1,14 @@
-import { ApplicationRef, Component, createComponent } from "@angular/core";
+import { ApplicationRef, Component, createComponent, ElementRef, ViewChild } from "@angular/core";
 import { PropertySelection } from "./property selection";
+import { Condition } from "./condition/condition";
+import { createConditionCommand } from "./condition actions";
 @Component({
     selector:"retrieval",
-    template: "<div id='retrieval'><button (click)='addProperty()'>Add Property</button><button (click)='displayData()'>View Data</button><property-selection></property-selection></div>",
-    imports: [PropertySelection]
+    template: "<div id='retrieval' #retrieval><button (click)='addProperty()'>Add Property</button><button (click)='displayData(retrieval)'>View Data</button><span id='properties'><property-selection></property-selection></span><condition></condition></div>",
+    imports: [PropertySelection, Condition]
 })
 export class Retrieval{
+    
     constructor(private appRef:ApplicationRef){
 
     }
@@ -22,6 +25,7 @@ export class Retrieval{
         }
         return retrievalCommand;
     }
+   
     getTitles():string[]{
         const titles:string[]=[];
         const retrieval:HTMLDivElement=document.getElementById("retrieval") as HTMLDivElement;
@@ -43,24 +47,27 @@ export class Retrieval{
         }
         chart.appendChild(titleRow);
     }
-    async displayData(){
+
+    async displayData(retrieval:HTMLDivElement){
         const databaseMenu:HTMLSelectElement=document.getElementById("databaseMenu") as HTMLSelectElement;
          const database:string=databaseMenu.value;
          const chartMenu:HTMLSelectElement=document.getElementById("chartMenu") as HTMLSelectElement;
          const chart:string=chartMenu.value;
          const retrievalCommand:string=this.createRetrievalCommand();
-       
+         const conditions:HTMLSpanElement=document.getElementById("conditionCommand") as HTMLSpanElement;
+        alert(createConditionCommand());
         const data=await fetch(`http://localhost:9000/retrieve/${database}/${chart}?${retrievalCommand}`)
         const values=await data.json();
        const dataOutput:HTMLTableElement=document.getElementById("data") as HTMLTableElement;
         dataOutput.innerHTML="";
+         
         this.displayTitles(dataOutput, this.getTitles());
        
         for(let record of values){
             const row:HTMLTableRowElement=document.createElement("tr") as HTMLTableRowElement;
             for(let property in record){
                 const valueCell:HTMLTableCellElement=document.createElement("td");
-                console.log("hello");
+               
                 valueCell.textContent=record[property];
                 row.appendChild(valueCell);
             }
@@ -69,7 +76,8 @@ export class Retrieval{
       
     }
      addProperty(){
-        const retrieval:HTMLElement=<HTMLElement>document.getElementById("retrieval") ;
-        createComponent(PropertySelection, {hostElement:retrieval, environmentInjector:this.appRef.injector});
+        const properties:HTMLElement=<HTMLElement>document.getElementById("properties") ;
+        createComponent(PropertySelection, {hostElement:properties, environmentInjector:this.appRef.injector});
      }
+
 }

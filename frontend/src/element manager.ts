@@ -29,4 +29,20 @@ export async function displayPropertyBoxes(){
         }
         added.appendChild(propertyBox);
     }
-   }
+}
+/*export function findElementsWithTags(parent:HTMLElement, tags:string[]){
+    const matches:HTMLElement[]=[];
+    const descendants:HTMLElement[]=parent.querySelectorAll("*");
+    for(let element of descendants){
+        let found:boolean=false;
+        for(let tag of tags){
+            if(element.tagName==tag){
+                found=true;
+                break;
+            }
+        }
+        if(found)
+            matches.push(element);
+    }
+    return matches;
+}*/

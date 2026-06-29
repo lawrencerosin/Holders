@@ -11,7 +11,7 @@ export class Begin{
         const info=await fetch("http://localhost:9000/"+path);
         const items=await info.json();
         
-       
+        
         for(let item of items){
           const itemOption=document.createElement("option");
           itemOption.textContent=itemOption.value=item;
