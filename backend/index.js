@@ -3,7 +3,7 @@
 import * as  files from "node:fs"; 
 import { parseInteger, parseProperty, parseRecord } from "./parse.js";
 import { parse } from "node:path";
- 
+import { checkComparison } from "./condition.js";
 function isPropertyOf(value, database, chart){
     let dash=0;
     let path="";
@@ -85,9 +85,9 @@ database.use(function(request, response, next){
     next();
 })
 database.get("/retrieve/:database/:chart", async function(request, response){
-     
+    
      const property=request.query.property;
-     const condition=request.query.condition;
+     const condition=request.query.condition.split("|");
      const path=request.params.database+"-"+request.params.chart+"-record";
      const results=[];
      
@@ -103,14 +103,16 @@ database.get("/retrieve/:database/:chart", async function(request, response){
                 const propertyValue=request.query[property];
                 WebAssembly.instantiate(reader).then(function(code){
                 const {placeInt, getInt}=code.instance.exports;
-              
-                placeInt(parseInteger(record[propertyValue]), true);
+                if(!isNaN(record[propertyValue]))
+                placeInt(parseInteger(record[propertyValue]), checkComparison(process.env[condition[0]], condition[1], condition[2]));
                 
               })
+
               result[propertyValue]=record[propertyValue];
             }
-             
-            results.push(result);
+            console.log(record[condition[0]]);
+            if(checkComparison(record[condition[0]], condition[1], condition[2])||condition=="true")
+               results.push(result);
         }); 
      
    response.send(results);
