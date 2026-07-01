@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, createComponent, ElementRef, ViewChild } from "@angular/core";
+import { ApplicationRef, Component, createComponent } from "@angular/core";
 import { PropertySelection } from "./property selection";
 import { Condition } from "./condition/condition";
 import { createConditionCommand } from "./condition actions";
@@ -41,7 +41,7 @@ export class Retrieval{
        
         const titleRow:HTMLTableRowElement=document.createElement("tr");
         for(let title of titles){
-            const titleCell:HTMLTableCaptionElement=document.createElement("th");
+            const titleCell:HTMLTableCellElement=document.createElement("th");
             titleCell.textContent=title;
             titleRow.appendChild(titleCell);
         }

@@ -8,10 +8,11 @@ import { PropertyCreation } from "../property creation";
 import { PropertyList } from '../property list';
 import { displayPropertyBoxes } from '../element manager';
 import { Retrieval } from '../retrieval';
+import { Change } from "../change/change";
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Begin, Commands,  RecordCreation, PropertyList, PropertyCreation, Retrieval, ItemCreation]
+   imports: [RouterOutlet, Begin, Commands, RecordCreation, PropertyList, PropertyCreation, Retrieval, ItemCreation, Change]
   
 })
 export class App {

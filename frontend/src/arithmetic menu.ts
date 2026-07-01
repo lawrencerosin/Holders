@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 @Component({
-    selector:"operation-menu",
+    selector:"arithmetic-menu",
     template:"<select><option></option><option>+</option><option>-</option><option>*</option><option>/</option><option>mod</option></select>"
 })
-export class OperationMenu{
+export class ArithmeticMenu{
     
 }
