@@ -2,11 +2,11 @@ import { Component, Input } from "@angular/core";
 import { Type } from "./type";
 import { RouterOutlet } from "@angular/router";
 @Component({
-    selector:"property_creation",
+    selector:"property_adder",
     imports: [Type, RouterOutlet],
     template:"<span style='display:none' id='newProperty'><span #property><input required placeholder='Property Name'   ngmodel title='The property name must start with a letter, and then contain only letters, numbers, and the underscore.'  #propertyName pattern='\\d[A-Za-z_][A-Za-z1-9_]\\d' /><type></type><button (click)='addProperty(propertyName)'>Add Property</button><router-outlet></router-outlet></span></span>"
 })
-export class PropertyCreation{
+export class PropertyAdder{
    @Input() database:string="";
    @Input() chart:string="";
    

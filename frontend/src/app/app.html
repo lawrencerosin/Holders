@@ -194,9 +194,9 @@
     <nav id="charts" style="display:none"><select #chartMenu id="chartMenu" (change)="displayPropertiesToAdd()"><option></option></select><item_creation type="Chart" path={{chartCreation}}></item_creation></nav>
     <commands database={{databaseMenu.value}} chart={{chartMenu.value}}></commands>
     <property-list database={{databaseMenu.value}} chart={{chartMenu.value}} #propertyList></property-list>
-    <property_creation database={{databaseMenu.value}} chart={{chartMenu.value}}></property_creation>
+    <property_adder database={{databaseMenu.value}} chart={{chartMenu.value}}></property_adder>
     <retrieval></retrieval>
-    <record_creation database="{{databaseMenu.value}}" chart={{chartMenu.value}}></record_creation>
+    <record-adder database="{{databaseMenu.value}}" chart={{chartMenu.value}}></record-adder>
     <change></change>
     <table id="data" style="border:3px solid lightgray"><!--Three-->
 

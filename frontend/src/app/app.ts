@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router'; 
 import { Begin } from "../buttons/begin";
-import {RecordCreation} from "../record creation"; 
+import {RecordAdder} from "../record adder"; 
 import { ItemCreation } from '../item creation';
 import { Commands } from '../commands';
-import { PropertyCreation } from "../property creation";
+import { PropertyAdder } from "../property adder";
 import { PropertyList } from '../property list';
 import { displayPropertyBoxes } from '../element manager';
 import { Retrieval } from '../retrieval';
@@ -12,7 +12,7 @@ import { Change } from "../change/change";
 @Component({
   selector: 'app-root', 
   templateUrl:"./app.html",
-   imports: [RouterOutlet, Begin, Commands, RecordCreation, PropertyList, PropertyCreation, Retrieval, ItemCreation, Change]
+   imports: [RouterOutlet, Begin, Commands, RecordAdder, PropertyList, PropertyAdder, Retrieval, ItemCreation, Change]
   
 })
 export class App {

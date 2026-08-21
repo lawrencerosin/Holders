@@ -1,11 +1,11 @@
 import { Component, Input, Renderer2, ElementRef, ViewChild } from "@angular/core"; 
 import { RouterOutlet } from "@angular/router";
 @Component({
-    selector:"record_creation",
+    selector:"record-adder",
     imports: [RouterOutlet],
     template:`<form style='display:none' name='added'><button (click)='addRecord()' type='button'>Add Record</button></form><router-outlet></router-outlet>`
 })
-export class RecordCreation{
+export class RecordAdder{
    @Input() database:string="";
    @Input() chart:string="";
    @ViewChild("renderer") renderer:Renderer2;
